@@ -40,18 +40,18 @@
                     android:layout_marginHorizontal="20dp"
                     android:background="@color/mainDark"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/home"
+                    android:src="@drawable/home"
                     tools:layout_editor_absoluteX="10dp"
                     tools:layout_editor_absoluteY="61dp" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/back"
                     android:layout_width="20dp"
                     android:background="@color/mainDark"
                     android:layout_height="30dp"
                     android:layout_marginHorizontal="20dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/back"
+                    android:src="@drawable/back"
                     tools:layout_editor_absoluteX="10dp"
                     tools:layout_editor_absoluteY="61dp" />
             </LinearLayout>
@@ -208,8 +208,175 @@
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                app:srcCompat="@drawable/clinic"
+                android:src="@drawable/clinic"
                 android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Clinic Date" />
+                    <TextView
+                        android:id="@+id/updatedDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Loading..." />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Heart Beat" />
+                    <TextView
+                        android:id="@+id/hbeat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Loading..." />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Name of the nurse" />
+                    <TextView
+                        android:id="@+id/nurseName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Loading..." />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Position" />
+                    <TextView
+                        android:id="@+id/cposition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Loading..." />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Pressure" />
+                    <TextView
+                        android:id="@+id/cPressure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Loading..." />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Swelling" />
+                    <TextView
+                        android:id="@+id/cswelling"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Loading..." />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Number of Thriposha Packets" />
+                    <TextView
+                        android:id="@+id/thriposhaNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Loading..." />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Number of Weeks" />
+                    <TextView
+                        android:id="@+id/weekCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Loading..." />
+
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

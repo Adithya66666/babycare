@@ -46,6 +46,14 @@ class MotherClinic : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        binding.btnHome.setOnClickListener{
+            val intent = Intent(this,Dashboard::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.back.setOnClickListener{
+            finish()
+        }
     }
 
     private fun readData(pregnancyId:String){

@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.time.LocalDate
+import java.util.*
 
 class AddMotherMed : AppCompatActivity() {
     private lateinit var binding: ActivityAddMotherMedBinding
@@ -45,54 +46,28 @@ class AddMotherMed : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun addMed(pregnancyId:String){
-        counter = 0
-
         var medName = binding.med.text.toString()
-        if(medName.isNotEmpty()){
-            FirebaseDatabase.getInstance().getReference("MotherMed").get().addOnSuccessListener {
-                if(it.exists()){
-                    FirebaseDatabase.getInstance().getReference("MotherMed").addListenerForSingleValueEvent(object :
-                        ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if(snapshot.exists()){
-                                for(fineSnapshot in snapshot.children){
-                                    if(fineSnapshot.child("pregnancyId").value.toString() == pregnancyId){
-                                        counter++
-                                    }
-                                }
-                                addMedConfirm(counter,pregnancyId,medName)
-                            }
-                        }
-                        override fun onCancelled(error: DatabaseError) {
+        var instructions = binding.instructions.text.toString()
 
-                        }
-                    })
-
-                }else{
-                    addMedConfirm(0,pregnancyId,medName)
+        if (medName.isNotEmpty() && instructions.isNotEmpty()) {
+            var createdDate = LocalDate.now().toString()
+            val uuid = UUID.randomUUID()
+            var med = MotherMedItem(
+                pregnancyId,
+                createdDate,
+                medName,
+                user.uid.toString(),
+                uuid.toString(),
+                instructions
+            )
+            FirebaseDatabase.getInstance().getReference("MotherMed").child(uuid.toString())
+                .setValue(med).addOnSuccessListener {
+                    var intent = Intent(this, MotherMed::class.java).also {
+                        it.putExtra("pregnancyId", pregnancyId)
+                    }
+                    startActivity(intent)
+                    finish()
                 }
-            }
-        }else{
-            Toast.makeText(this, "Medicine name can not be empty", Toast.LENGTH_SHORT).show()
         }
-
     }
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun addMedConfirm(counter:Int,pregnancyId:String,medName:String){
-
-        var bmiId = counter + 1
-        var createdDate = LocalDate.now().toString()
-
-        var medicine = MotherMedItem(pregnancyId,createdDate,medName,user.uid.toString())
-
-        FirebaseDatabase.getInstance().getReference("MotherMed").child(bmiId.toString()).setValue(medicine).addOnSuccessListener {
-            var intent = Intent(this,MotherMed::class.java).also {
-                it.putExtra("pregnancyId",pregnancyId)
-            }
-            startActivity(intent)
-            finish()
-        }
-
-    }
-
 }

@@ -40,18 +40,18 @@
                     android:layout_marginHorizontal="20dp"
                     android:background="@color/mainDark"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/home"
+                    android:src="@drawable/home"
                     tools:layout_editor_absoluteX="10dp"
                     tools:layout_editor_absoluteY="61dp" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/back"
                     android:layout_width="20dp"
                     android:background="@color/mainDark"
                     android:layout_height="30dp"
                     android:layout_marginHorizontal="20dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/back"
+                    android:src="@drawable/back"
                     tools:layout_editor_absoluteX="10dp"
                     tools:layout_editor_absoluteY="61dp" />
             </LinearLayout>
@@ -68,7 +68,7 @@
                 android:id="@+id/textView30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mother's BMI list"
+                android:text="Mother's medicine list"
                 android:layout_weight="1"/>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -89,7 +89,6 @@
             android:id="@+id/medList"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-]
 
     </LinearLayout>
 

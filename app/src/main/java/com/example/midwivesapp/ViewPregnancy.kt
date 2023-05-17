@@ -46,6 +46,14 @@ class ViewPregnancy : AppCompatActivity() {
             }
             startActivity(intent)
         }
+        binding.btnHome.setOnClickListener{
+            val intent = Intent(this,Dashboard::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.back.setOnClickListener{
+            finish()
+        }
 
     }
 }

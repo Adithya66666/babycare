@@ -1,12 +1,24 @@
 package com.example.midwivesapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.SurfaceHolder
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.midwivesapp.databinding.ActivityDashboardBinding
+import com.google.android.gms.vision.CameraSource
+import com.google.android.gms.vision.Detector
+import com.google.android.gms.vision.barcode.Barcode
+import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import java.io.IOException
 
 class Dashboard : AppCompatActivity() {
 
@@ -28,11 +40,13 @@ class Dashboard : AppCompatActivity() {
             startActivity(Intent(this,addMotherForm::class.java))
         }
         binding.qrScanner.setOnClickListener{
-            startActivity(Intent(this,MotherAddComplete::class.java))
+            startActivity(Intent(this,QrScanner::class.java))
         }
         binding.viewMotherList.setOnClickListener{
             startActivity(Intent(this,MotherList::class.java))
         }
+
+
     }
 
     private fun readData(){

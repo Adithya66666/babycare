@@ -17,7 +17,7 @@ class MotherCourseAdapter(private val CourseList:ArrayList<MotherCourseItem>, pr
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.med_element,parent,false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.course_element,parent,false)
         return CourseViewHolder(itemView)
 
     }

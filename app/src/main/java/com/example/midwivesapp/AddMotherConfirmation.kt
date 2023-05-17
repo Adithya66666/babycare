@@ -39,6 +39,16 @@ class AddMotherConfirmation : AppCompatActivity() {
             addMother(motherFName.toString(),motherLName.toString(),motherEmail.toString(),motherPassword.toString(),address.toString(),dob.toString(),phoneNumber.toString())
         }
 
+
+        binding.btnHome.setOnClickListener{
+            val intent = Intent(this,Dashboard::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.back.setOnClickListener{
+            finish()
+        }
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -50,13 +60,18 @@ class AddMotherConfirmation : AppCompatActivity() {
         var nurseId = user.uid.toString()
         var createdDate = LocalDate.now()
 
-        var mother = Mother(fullName,motherFName,status,babyCount.toString(),address,dob,nurseId,createdDate.toString(), motherEmail, motherPassword,motherID,phoneNumber)
-        FirebaseDatabase.getInstance().getReference("Mother").child(motherID).setValue(mother)
+        var accountStatus = "pending"
 
-        val intent = Intent(this,MotherAddComplete::class.java).also{
-            it.putExtra("motherID",motherID)
+        var mother = Mother(fullName,motherFName,status,babyCount.toString(),address,dob,nurseId,createdDate.toString(), motherEmail, motherPassword,motherID,phoneNumber,accountStatus)
+        FirebaseDatabase.getInstance().getReference("Mother").child(motherID).setValue(mother).addOnSuccessListener {
+            var conversation = Conversation(motherID,motherID,nurseId)
+            FirebaseDatabase.getInstance().getReference("Conversation").child(motherID).setValue(conversation).addOnSuccessListener {
+                val intent = Intent(this,MotherAddComplete::class.java).also{
+                    it.putExtra("motherID",motherID)
+                }
+                startActivity(intent)
+                finish()
+            }
         }
-        startActivity(intent)
-        finish()
     }
 }

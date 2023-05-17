@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/addbaby" />
+        android:src="@drawable/addbaby" />
 
     <LinearLayout
         android:id="@+id/linearLayout6"
@@ -30,16 +30,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView37"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Medicine Name" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView37"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medicine Name" />
 
                 <EditText
                     android:id="@+id/med"
@@ -48,6 +48,29 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Enter the name of the medicine"
+                    android:inputType="textPersonName"
+                    android:text=""
+                    tools:ignore="TouchTargetSizeCheck" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Instructions" />
+
+                <EditText
+                    android:id="@+id/instructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="instruction to take the medicine"
                     android:inputType="textPersonName"
                     android:text=""
                     tools:ignore="TouchTargetSizeCheck" />

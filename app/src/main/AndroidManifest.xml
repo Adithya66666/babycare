@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -8,6 +16,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Midwivesapp">
+        <activity
+            android:name=".Chart"
+            android:exported="false" />
+        <activity
+            android:name=".QrScanner"
+            android:exported="false" />
+        <activity
+            android:name=".MotherNotVerified"
+            android:exported="false" />
+        <activity
+            android:name=".ViewBabyClinic"
+            android:exported="false" />
+        <activity
+            android:name=".AddBabyClinic"
+            android:exported="false" />
+        <activity
+            android:name=".AddBabyCourse"
+            android:exported="false" />
+        <activity
+            android:name=".AddBabyMed"
+            android:exported="false" />
+        <activity
+            android:name=".AddBabyBmi"
+            android:exported="false" />
         <activity
             android:name=".BabyClinic"
             android:exported="false" />

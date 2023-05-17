@@ -15,12 +15,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.time.LocalDate
+import java.util.*
 
 class AddMotherCourse : AppCompatActivity() {
     private lateinit var binding: ActivityAddMotherCourseBinding
     private lateinit var user:FirebaseAuth
 
-    private var counter:Int = 0
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityAddMotherCourseBinding.inflate(layoutInflater)
@@ -44,53 +44,25 @@ class AddMotherCourse : AppCompatActivity() {
             finish()
         }
     }
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun addCourse(pregnancyId:String){
-        counter = 0
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun addCourse(pregnancyId: String) {
         var courseName = binding.course.text.toString()
-        if(courseName.isNotEmpty()){
-            FirebaseDatabase.getInstance().getReference("MotherCourse").get().addOnSuccessListener {
-                if(it.exists()){
-                    FirebaseDatabase.getInstance().getReference("MotherCourse").addListenerForSingleValueEvent(object :
-                        ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if(snapshot.exists()){
-                                for(fineSnapshot in snapshot.children){
-                                    counter++
-                                }
-                                addCourseConfirm(counter,pregnancyId,courseName)
-                            }
-                        }
-                        override fun onCancelled(error: DatabaseError) {
 
-                        }
-                    })
-
-                }else{
-                    addCourseConfirm(0,pregnancyId,courseName)
+        if(courseName.isNotEmpty()) {
+            var createdDate = LocalDate.now().toString()
+            val uuid = UUID.randomUUID()
+            var course = MotherCourseItem(
+                pregnancyId,createdDate,courseName,user.uid.toString(),uuid.toString()
+            )
+            FirebaseDatabase.getInstance().getReference("MotherCourse").child(uuid.toString())
+                .setValue(course).addOnSuccessListener {
+                    var intent = Intent(this, MotherCourses::class.java).also {
+                        it.putExtra("pregnancyId", pregnancyId)
+                    }
+                    startActivity(intent)
+                    finish()
                 }
-            }
-        }else{
-            Toast.makeText(this, "Medicine name can not be empty", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun addCourseConfirm(counter:Int,pregnancyId:String,courseName:String){
-
-        var bmiId = counter + 1
-        var createdDate = LocalDate.now().toString()
-
-        var motherCourseItem = MotherCourseItem(pregnancyId,createdDate,courseName,user.uid.toString())
-
-        FirebaseDatabase.getInstance().getReference("MotherCourse").child(bmiId.toString()).setValue(motherCourseItem).addOnSuccessListener {
-            var intent = Intent(this,MotherCourses::class.java).also {
-                it.putExtra("pregnancyId",pregnancyId)
-            }
-            startActivity(intent)
-            finish()
-        }
-
     }
 }

@@ -20,10 +20,6 @@ class AddMotherBmi : AppCompatActivity() {
     private lateinit var binding: ActivityAddMotherBmiBinding
     private lateinit var user: FirebaseAuth
 
-    private var counter:Int = 0
-
-    private lateinit var bmiStatus:String
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,48 +41,16 @@ class AddMotherBmi : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
     @RequiresApi(Build.VERSION_CODES.O)
     private fun addBmi(pregnancyId:String){
-        counter = 0
-
-        FirebaseDatabase.getInstance().getReference("Bmi").get().addOnSuccessListener {
-            if(it.exists()){
-                FirebaseDatabase.getInstance().getReference("Bmi").addListenerForSingleValueEvent(object :
-                    ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if(snapshot.exists()){
-                            for(fineSnapshot in snapshot.children){
-                                counter++
-                            }
-                            addBmiConfirm(counter,pregnancyId)
-                        }
-                    }
-                    override fun onCancelled(error: DatabaseError) {
-
-                    }
-                })
-
-            }else{
-                binding.statusText.text = "null"
-                addBmiConfirm(0,pregnancyId)
-            }
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun addBmiConfirm(counter:Int,pregnancyId: String){
-
         var weight = binding.weight.text.toString()
         var height = binding.height.text.toString()
 
+        var createdDate = LocalDate.now().toString()
+
         if(weight.isNotEmpty() && height.isNotEmpty()){
-            //var bmiId = UUID.randomUUID().toString()
-            var bmiId = counter + 1
-            var createdDate = LocalDate.now().toString()
-
             var bmiVal = (weight.toFloat() / (height.toFloat() * height.toFloat()))*10000
-
+            var bmiStatus = ""
             bmiStatus = if(bmiVal < 18.5){
                 "Underweight"
             }else if(bmiVal in 18.5..24.9){
@@ -99,20 +63,19 @@ class AddMotherBmi : AppCompatActivity() {
                 "Class 3 obesity"
             }
 
+            val uuid = UUID.randomUUID()
             binding.statusText.text = bmiVal.toString()
-            var bmi = Bmi(pregnancyId,weight,height,bmiVal,createdDate,bmiStatus)
-
-            FirebaseDatabase.getInstance().getReference("Bmi").child(bmiId.toString()).setValue(bmi).addOnSuccessListener {
+            var bmi = Bmi(pregnancyId,weight,height,bmiVal,createdDate,bmiStatus,uuid.toString())
+            FirebaseDatabase.getInstance().getReference("Bmi").child(uuid.toString()).setValue(bmi).addOnSuccessListener {
                 var intent = Intent(this,MotherBmi::class.java).also {
                     it.putExtra("pregnancyId",pregnancyId)
                 }
                 startActivity(intent)
                 finish()
             }
+
         }else{
-            Toast.makeText(this, "Fill all the weight and height inputs", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Fill all the input fields", Toast.LENGTH_SHORT).show()
         }
-
-
     }
 }

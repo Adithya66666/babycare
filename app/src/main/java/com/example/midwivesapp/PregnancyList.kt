@@ -33,6 +33,16 @@ class PregnancyList : AppCompatActivity() {
         pregnancyRecyclerView.setHasFixedSize(true)
         pregnancyArrayList = arrayListOf<PregnancyItem>()
         readData(motherId.toString())
+
+        binding.btnHome.setOnClickListener{
+            val intent = Intent(this,Dashboard::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.back.setOnClickListener{
+            finish()
+        }
+
     }
 
     private fun readData(motherId:String){

@@ -20,6 +20,15 @@ class addMotherForm : AppCompatActivity() {
             addMother()
         }
 
+        binding.btnHome.setOnClickListener{
+            val intent = Intent(this,Dashboard::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.back.setOnClickListener{
+            finish()
+        }
+
     }
     private fun addMother(){
         val fName = binding.txtMFirstName.text.toString()

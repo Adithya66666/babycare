@@ -31,6 +31,14 @@ class MotherList : AppCompatActivity() {
         motherRecyclerView.setHasFixedSize(true)
         motherArrayList = arrayListOf<MotherItem>()
         readData(user.uid.toString())
+        binding.btnHome.setOnClickListener{
+            val intent = Intent(this,Dashboard::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.back.setOnClickListener{
+            finish()
+        }
 
     }
 
@@ -56,9 +64,16 @@ class MotherList : AppCompatActivity() {
 
     fun onItemClick(position: Int) {
         var currentMother = motherArrayList[position]
-        var intent = Intent(this,ViewMother::class.java).also {
-            it.putExtra("motherId",currentMother.motherId)
+        if(currentMother.accountStatus == "pending"){
+            var intent = Intent(this,MotherNotVerified::class.java).also {
+                it.putExtra("motherId",currentMother.motherId)
+            }
+            startActivity(intent)
+        }else if(currentMother.accountStatus == "verified"){
+            var intent = Intent(this,ViewMother::class.java).also {
+                it.putExtra("motherId",currentMother.motherId)
+            }
+            startActivity(intent)
         }
-        startActivity(intent)
     }
 }

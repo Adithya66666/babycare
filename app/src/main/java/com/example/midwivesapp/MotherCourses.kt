@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputBinding
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.midwivesapp.databinding.ActivityMotherCoursesBinding
@@ -20,6 +21,7 @@ class MotherCourses : AppCompatActivity() {
     private lateinit var courseArrayList : ArrayList<MotherCourseItem>
     private lateinit var courseRecyclerView : RecyclerView
 
+    private var pregnancyIndex = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMotherCoursesBinding.inflate(layoutInflater)
         user = FirebaseAuth.getInstance()
@@ -27,6 +29,7 @@ class MotherCourses : AppCompatActivity() {
         setContentView(binding.root)
 
         var pregnancyId = intent.getStringExtra("pregnancyId")
+        pregnancyIndex = pregnancyId.toString()
 
         binding.btnAddCourse.setOnClickListener{
             var intent = Intent(this,AddMotherCourse::class.java).also {
@@ -41,10 +44,19 @@ class MotherCourses : AppCompatActivity() {
         courseRecyclerView.setHasFixedSize(true)
         courseArrayList = arrayListOf<MotherCourseItem>()
         readData(pregnancyId.toString())
+
+        binding.btnHome.setOnClickListener{
+            val intent = Intent(this,Dashboard::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.back.setOnClickListener{
+            finish()
+        }
     }
 
     private fun readData(pregnancyId:String){
-        FirebaseDatabase.getInstance().getReference("MotherCourse").addValueEventListener(object :
+        FirebaseDatabase.getInstance().getReference("MotherCourse").addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
@@ -64,6 +76,12 @@ class MotherCourses : AppCompatActivity() {
     }
 
     fun onItemClick(position: Int) {
-
+        FirebaseDatabase.getInstance().getReference("MotherCourse").child(courseArrayList[position].courseId.toString()).removeValue().addOnSuccessListener {
+            courseArrayList.clear()
+            Toast.makeText(this, "Bmi Element Deleted Successfully", Toast.LENGTH_SHORT).show()
+            readData(pregnancyIndex)
+        }.addOnFailureListener{
+            Toast.makeText(this, "Failed to delete. Try Again", Toast.LENGTH_SHORT).show()
+        }
     }
 }

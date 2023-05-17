@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.time.LocalDate
+import java.util.UUID
 
 class AddMotherClinic : AppCompatActivity() {
 
@@ -42,41 +43,17 @@ class AddMotherClinic : AppCompatActivity() {
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun addClinic(pregnancyId:String){
-        FirebaseDatabase.getInstance().getReference("MotherClinic").get().addOnSuccessListener {
-            if(it.exists()){
-                FirebaseDatabase.getInstance().getReference("MotherClinic").addListenerForSingleValueEvent(object :
-                    ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if(snapshot.exists()){
-                            for(fineSnapshot in snapshot.children){
-                                counter++
-                            }
-                            confirmClinic(pregnancyId,counter)
-                        }
-                    }
-                    override fun onCancelled(error: DatabaseError) {
-
-                    }
-                })
-            }else{
-                confirmClinic(pregnancyId,0)
-            }
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun confirmClinic(pregnancyId: String, counter:Int){
         var purpose = binding.purpose.text.toString()
         var clinicDate = binding.clinicDate.text.toString()
 
-        var clinicId = counter + 1
+        var clinicId = UUID.randomUUID()
         var createdDate = LocalDate.now().toString()
-        
+
         if(purpose.isNotEmpty() && clinicDate.isNotEmpty()){
 
             var status = "pending"
 
-            var motherClinicItem = MotherClinicItem(clinicId,pregnancyId,createdDate,purpose,user.uid.toString(),clinicDate,status)
+            var motherClinicItem = MotherClinicItem(clinicId.toString(),pregnancyId,createdDate,purpose,user.uid.toString(),clinicDate,status)
 
             FirebaseDatabase.getInstance().getReference("MotherClinic").child(clinicId.toString()).setValue(motherClinicItem).addOnSuccessListener {
                 var intent = Intent(this,MotherClinic::class.java).also {
@@ -89,6 +66,11 @@ class AddMotherClinic : AppCompatActivity() {
         }else{
             Toast.makeText(this, "Fill all the inputs to add a clinic", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun confirmClinic(pregnancyId: String, counter:Int){
+
 
     }
 }

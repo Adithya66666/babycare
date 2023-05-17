@@ -34,6 +34,16 @@ class MotherAddComplete : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        binding.btnHome.setOnClickListener{
+            val intent = Intent(this,Dashboard::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.back.setOnClickListener{
+            val intent = Intent(this,Dashboard::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun readData(motherID:String){

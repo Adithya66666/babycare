@@ -9,7 +9,10 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.midwivesapp.databinding.ActivityViewMotherClinicBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.time.LocalDate
 import java.util.*
 
@@ -37,6 +40,14 @@ class ViewMotherClinic : AppCompatActivity() {
         binding.btnAdd.setOnClickListener{
             addClinic(clinicId.toString(),pregnancyId.toString())
         }
+        binding.btnHome.setOnClickListener{
+            val intent = Intent(this,Dashboard::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.back.setOnClickListener{
+            finish()
+        }
     }
 
     private fun showForm(){
@@ -47,6 +58,40 @@ class ViewMotherClinic : AppCompatActivity() {
     private fun readData(clinicId:String){
         binding.form.visibility = View.GONE
         binding.view.visibility = View.VISIBLE
+
+        FirebaseDatabase.getInstance().getReference("MotherConservations")
+            .orderByChild("clinicId")
+            .equalTo(clinicId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if(snapshot.exists()){
+                        for (data in snapshot.children) {
+                        binding.updatedDate.text = data.child("currentDate").value.toString()
+                        binding.hbeat.text = data.child("heartBeat").value.toString()
+                        binding.cposition.text = data.child("position").value.toString()
+                        binding.cPressure.text = data.child("pressure").value.toString()
+                        binding.cswelling.text = data.child("swelling").value.toString()
+                        binding.thriposhaNum.text = data.child("thriposha").value.toString()
+                        binding.weekCount.text = data.child("week").value.toString()
+
+                            FirebaseDatabase.getInstance().getReference("User").child(data.child("nurseId").value.toString()).get().addOnSuccessListener {
+                                if(it.exists()){
+                                    binding.nurseName.text = "${it.child("firstName").value.toString()} ${it.child("lastName").value.toString()}"
+                                }else{
+                                    binding.nurseName.text = "Nurse's name is not available"
+                                }
+                            }
+
+                        }
+                    }else{
+                        Toast.makeText(this@ViewMotherClinic, "This Clinical Conservation completed but not available at the movement. Please try again.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+            })
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
