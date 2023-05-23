@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Dashboard">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/mainDark"
             android:padding="10dp"
@@ -50,15 +46,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
+
             android:orientation="vertical"
             android:padding="30dp">
 
             <LinearLayout
                 android:id="@+id/qrScanner"
                 android:layout_width="200dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/qrscanner"
                 android:gravity="center"
@@ -84,7 +81,7 @@
             <LinearLayout
                 android:id="@+id/viewMotherList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 android:background="@drawable/listbackground"
                 android:gravity="center"
@@ -108,7 +105,7 @@
             <LinearLayout
                 android:id="@+id/btnCreateMotherAccount"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 android:background="@drawable/add_mother_background"
                 android:gravity="center"
@@ -130,32 +127,8 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/viewBabyList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginVertical="5dp"
-                android:background="@drawable/list_babies"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginHorizontal="10dp"
-                    app:srcCompat="@drawable/list" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="List of babies"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 android:background="@drawable/listbackground"
                 android:gravity="center"
@@ -178,7 +151,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
                 android:background="@drawable/profile"
                 android:gravity="center"
@@ -218,10 +191,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/mainDark"
+            android:layout_weight="1"
             android:padding="30dp">
 
         </FrameLayout>
 
-    </LinearLayout>
 
-</ScrollView>
+</LinearLayout>

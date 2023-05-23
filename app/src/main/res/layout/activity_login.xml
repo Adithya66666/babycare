@@ -86,7 +86,7 @@
             android:inputType="textPersonName"
             android:fontFamily="@font/robotoregular"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:background="@drawable/white_input"
             android:paddingHorizontal="15dp"
             android:paddingVertical="8dp"
